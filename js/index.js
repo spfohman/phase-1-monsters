@@ -73,11 +73,23 @@ document.addEventListener('DOMContentLoaded', function(){
      })
     const forward =  document.getElementById('forward');
     forward.addEventListener('click', (event)=>{
-        //event.preventDefault();
-        //document.querySelector('#monster-container').reset();
-        fetch(`http://localhost:3000/monsters/?_limit=50&_page=${page+1}`)
+        
+        fetch(`http://localhost:3000/monsters/?_limit=50&_page=${page+=1}`)
         .then(result=>result.json())
-        .then(result=>{result.forEach(monster=>renderMonsters(monster))})
+        .then(result=>{
+            document.querySelector('#monster-container').innerHTML = '';
+            result.forEach(monster=>renderMonsters(monster))})
+        
+
+    })
+    const back =  document.getElementById('back');
+    back.addEventListener('click', (event)=>{
+       
+        fetch(`http://localhost:3000/monsters/?_limit=50&_page=${page-=1}`)
+        .then(result=>result.json())
+        .then(result=>{
+            document.querySelector('#monster-container').innerHTML = '';
+            result.forEach(monster=>renderMonsters(monster))})
         
 
     })
